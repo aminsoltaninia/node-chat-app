@@ -9,10 +9,10 @@ socket.on('connect',function(){
     //      to:"info@roxo.ir",
     //      text:"hey its from client"
     // })
-    socket.emit('createmessageUSR',{
-         from:"aminsoltani",
-         text:"hey its from client"
-    })
+    // socket.emit('createmessageUSR',{
+    //      from:"aminsoltani",
+    //      text:"hey its from client"
+    // })
 })
 
 socket.on('disconnect',function(){
@@ -23,4 +23,19 @@ socket.on('disconnect',function(){
 // })//baraye daryafte emil az server
 socket.on('createmesseageSRV',function(message){
     console.log('Createmessage from Server',message);
+
+    var li = $('<li></li>');// ye tage li ro migire va mirize dakhele li
+    li.text(`${message.from}:${message.text}`);//"admin:welcome to the chat app"// bara bare aval ino mide be text marbot be li
+    //console.log(li.text(`${message.from}:${message.text}`));
+    $('#messages').append(li);
+})
+
+$('#message-form').on('submit',function(e){
+   e.preventDefault();//jologiri az refresh safe
+
+   //console.log('GGGGGGGGGGGGGGGG');
+   socket.emit('createmessageUSR',{
+       from:'User',
+       text: $('[name=message]').val()//meghdare input ro mirize dakhele text 
+   })
 })

@@ -1,6 +1,6 @@
 const path = require('path');
 const express = require('express');
-
+var {generatemessage}=require('./utils/message');
 const socketIO = require('socket.io');
 const http = require('http');
 
@@ -32,24 +32,14 @@ io.on('connection',(socket)=>{
     // socket.on('creatEmile',(email)=>{
     //    console.log('Creat email from user: ',email);
     // })
-    socket.emit('createmesseageSRV',{// send kardane mssage baraye addi
-        from: 'admin',
-        text: 'welcome to the chat app',
-        createAt: new Date().getTime()
-    })
-    socket.broadcast.emit('createmesseageSRV',{// send kardane message be halate broadcast baraye karbare jadid
-        from:'admin',
-        text: 'new user joined',
-        createAt: new Date().getTime()
-    })
+    socket.emit('createmesseageSRV',generatemessage('admin','welcome to the chat app'));
+
+    socket.broadcast.emit('createmesseageSRV',generatemessage('admin','new user joined'));
+
     socket.on('createmessageUSR',(message)=>{
         console.log('Createmessage from client',message);
 
-        io.emit('createmesseageSRV',{// data ersal mikonim
-             from: message.from,// message ro az client migire
-             text: message.text,
-             createAt: new Date().getTime()
-       }) 
+        io.emit('createmesseageSRV',generatemessage(message.from,message.text)); 
     //    socket.broadcast.emit('createmesseageSRV',{// data ersal mikonim
     //             from: message.from,// message ro az client migire
     //             text: message.text,

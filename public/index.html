@@ -3,17 +3,30 @@
     <head>
         <meta charset="utf-8">
         <title>chat app </title>
-        <link rel="stylesheet" href="">
+        <link rel="stylesheet" href="css/style.css">
     </head>
-    <body>
-        <h3>chat app is running</h3>
-        
-        <ol id="messages"></ol>   
-        <form  id="message-form">
-            <input type="text" name="message" placeholder="Message">
-            <button type="submit">send</button>
-        </form>
+    <body class="chat">
+        <div class="chat__sidebar">
+           <h3>People</h3>
+           <div id="users"></div>
+        </div>
 
+        
+        <div class="chat__main">
+             <ol id="messages" class="chat__messages"></ol>
+             <div class="chat__footer">
+                <form  id="message-form">
+                    <input type="text" name="message" placeholder="Message" autofocus autocomplete="false">
+                    <button type="submit">send</button>
+                    <button id="send-location" type="button">Send Location</button>
+                </form>
+             </div>
+        </div> 
+        <!--autofocus autocomplete="false"   
+                    baes mishe ke foucus bere ro input va refresh ke mis
+                    he amade bashe baraye neveshtan va niaz be ki
+                    lick roye chat box nist  */-->
+       
         <script src="js/lib/jquery-3.4.1.min.js"></script>
         <!--/*active socket io in client */--> 
         <script src="/socket.io/socket.io.js"></script>

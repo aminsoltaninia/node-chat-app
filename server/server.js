@@ -1,6 +1,7 @@
 const path = require('path');
 const express = require('express');
-var {generatemessage}=require('./utils/message');
+var {generatemessage,generateLocationmessage}=require('./utils/message');
+//var {generateLocationmessage}=require('./utils/message');
 const socketIO = require('socket.io');
 const http = require('http');
 
@@ -36,7 +37,7 @@ io.on('connection',(socket)=>{
 
     socket.broadcast.emit('createmesseageSRV',generatemessage('admin','new user joined'));
 
-    socket.on('createmessageUSR',(message)=>{
+    socket.on('createmessageUSR',(message,callback)=>{
         console.log('Createmessage from client',message);
 
         io.emit('createmesseageSRV',generatemessage(message.from,message.text)); 
@@ -48,10 +49,15 @@ io.on('connection',(socket)=>{
        
        
     //         })
+        callback();//bad az ajraye messege mire arg dovom ke calback hast  ke baraye pak kardane matne dakhele text box hast ro ejra mikone
+    })
+    socket.on('createlocationMessage',(coords)=>{
+       io.emit('newlocationMesage',generateLocationmessage('admin',coords.latitude,coords.longitude));
+    })
     socket.on('disconnect',()=>{
         console.log("User was disconnected");
     })
-})
+ 
 
 })
 app.use(express.static(publickpath));// masire foldere static ro be express midim

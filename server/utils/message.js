@@ -8,4 +8,16 @@ var generatemessage = (from,text)=>{
     createAt:new Date().getTime()
  }
 }
-module.exports={generatemessage}
+var generateLocationmessage= (from,latitude,longitude)=>{
+   console.log("generatelocation")
+   return {
+
+    from,
+    url:`https://www.google.com/maps?q=${latitude},${longitude}`,
+    createAt:new Date().getTime()
+ }
+}
+module.exports={
+   generatemessage,
+   generateLocationmessage
+}

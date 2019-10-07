@@ -1,3 +1,5 @@
+
+
 // samte client be jaye ()=>{} az function(){} estefade mikonim chon ecmascript 5 hast va hameye gooshia mishnasanesh
 
 
@@ -23,11 +25,23 @@ socket.on('disconnect',function(){
 // })//baraye daryafte emil az server
 socket.on('createmesseageSRV',function(message){
     console.log('Createmessage from Server',message);
+    var formatedTime = moment(message.createdAt).format('hh:mm a ');//messge.createdAt ke timestamp hast ba moment be tarikh tabdil mshe
+    
+    // mostache 
+    var template = $('#message-template').html();
+    var html = Mustache.render(template,{
+        text: message.text,
+        from: message.from,
+        createdAt: formatedTime
+    });
+    $('#messages').append(html); 
 
-    var li = $('<li></li>');// ye tage li ro migire va mirize dakhele li
-    li.text(`${message.from}:${message.text}`);//"admin:welcome to the chat app"// bara bare aval ino mide be text marbot be li
-    //console.log(li.text(`${message.from}:${message.text}`));
-    $('#messages').append(li);
+
+    // var li = $('<li></li>');// ye tage li ro migire va mirize dakhele li
+    // li.text(`${message.from}  ${formatedTime}: ${message.text}`);//"admin:welcome to the chat app"// bara bare aval ino mide be text marbot be li
+    // //console.log(li.text(`${message.from}:${message.text}`));
+    // $('#messages').append(li);
+     
 })
 
 $('#message-form').on('submit',function(e){
@@ -65,11 +79,28 @@ locationButton.on('click',function(){
 })
 //for newlocationmesage
 socket.on('newlocationMesage',function(message){
-    var li = $('<li></li>');
-    var a = $('<a target="_blank">My Current Location</a>');
+    var formatedTime = moment(message.createdAt).format('hh:mm a ');
+    
 
-    li.text(`${message.from} : `);
-    a.attr('href',message.url);
-    li.append(a);
-    $('#messages').append(li);
+      // mostache 
+    var template = $('#location-message-template').html();
+    var html = Mustache.render(template,{
+          url: message.url,
+          from: message.from,
+          createdAt: formatedTime
+    });
+    console.log('loation sending in html');
+    $('#messages').append(html); 
+  
+  
+   
+   
+   
+    
+    // var li = $('<li></li>');
+    // var a = $('<a target="_blank">My Current Location</a>');   
+    // li.text(`${message.from}  ${formatedTime} : `);
+    // a.attr('href',message.url);
+    // li.append(a);
+    // $('#messages').append(li);
 })

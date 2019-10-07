@@ -27,9 +27,45 @@
                     he amade bashe baraye neveshtan va niaz be ki
                     lick roye chat box nist  */-->
        
+        <!--for determination mostache -->
+        <script id="message-template" type="text/template">
+           <li class="message">
+               <div class="message__title">
+                   <h4>{{from}}</h4>
+                   <span>{{createdAt}}</span>
+                </div>
+                <div class="message__body">
+                    <p>{{text}}</p>
+                </div>
+           </li>   
+        
+        </script>
+        
+        
+        <script id="location-message-template" type="text/template">
+            <li class="message">
+                <div class="message__title">
+                    <h4>{{from}}</h4>
+                    <span>{{createdAt}}</span>
+                 </div>
+                 <div class="message__body">
+                     <p>
+                         <a href="{{url}}" target="_blank">My Current Location</a>
+                    </p>
+                 </div>
+            </li>   
+         
+        </script>
+        
+        
+
+
+
         <script src="js/lib/jquery-3.4.1.min.js"></script>
         <!--/*active socket io in client */--> 
         <script src="/socket.io/socket.io.js"></script>
         <script src="js/index.js"></script>
+        <script src="js/lib//moment.js"></script>
+        <script src="js/lib/mustache.js"></script>
     </body>
 </HTml>

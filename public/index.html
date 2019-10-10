@@ -2,70 +2,26 @@
 <HTml>
     <head>
         <meta charset="utf-8">
-        <title>chat app </title>
+        <title>ورود کاربران</title>
         <link rel="stylesheet" href="css/style.css">
     </head>
-    <body class="chat">
-        <div class="chat__sidebar">
-           <h3>People</h3>
-           <div id="users"></div>
+    <body class="centered-form">
+        <div class="centered-form__form"><form action="chat.html">
+            <div class="form-field">
+                <h3>join to chatroom</h3>
+            </div>
+            <div class="form-field">
+                <label for="">your name</label>
+                <input type="text" name="name" autofocus>
+            </div>
+            <div class="form-field">
+                <label for="">room</label>
+                <input type="text" name="room">
+            </div>
+            <div class="form-field">
+                <button>join</button>
+            </div>
+        </form>
         </div>
-
-        
-        <div class="chat__main">
-             <ol id="messages" class="chat__messages"></ol>
-             <div class="chat__footer">
-                <form  id="message-form">
-                    <input type="text" name="message" placeholder="Message" autofocus autocomplete="false">
-                    <button type="submit">send</button>
-                    <button id="send-location" type="button">Send Location</button>
-                </form>
-             </div>
-        </div> 
-        <!--autofocus autocomplete="false"   
-                    baes mishe ke foucus bere ro input va refresh ke mis
-                    he amade bashe baraye neveshtan va niaz be ki
-                    lick roye chat box nist  */-->
-       
-        <!--for determination mostache -->
-        <script id="message-template" type="text/template">
-           <li class="message">
-               <div class="message__title">
-                   <h4>{{from}}</h4>
-                   <span>{{createdAt}}</span>
-                </div>
-                <div class="message__body">
-                    <p>{{text}}</p>
-                </div>
-           </li>   
-        
-        </script>
-        
-        
-        <script id="location-message-template" type="text/template">
-            <li class="message">
-                <div class="message__title">
-                    <h4>{{from}}</h4>
-                    <span>{{createdAt}}</span>
-                 </div>
-                 <div class="message__body">
-                     <p>
-                         <a href="{{url}}" target="_blank">My Current Location</a>
-                    </p>
-                 </div>
-            </li>   
-         
-        </script>
-        
-        
-
-
-
-        <script src="js/lib/jquery-3.4.1.min.js"></script>
-        <!--/*active socket io in client */--> 
-        <script src="/socket.io/socket.io.js"></script>
-        <script src="js/index.js"></script>
-        <script src="js/lib//moment.js"></script>
-        <script src="js/lib/mustache.js"></script>
     </body>
 </HTml>

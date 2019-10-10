@@ -7,7 +7,7 @@ const http = require('http');
 
 const publickpath = path.join(__dirname,'../public');//server.js ro be file dakhele public miresonim(folder static)
 const port = process.env.PORT || 3000;
-
+var {isRealString} = require('./utils/validation');
 
 var app = express();
 /* active socket io in server*/
@@ -16,7 +16,7 @@ var server=http.createServer(app);//ba estefade az in dastor ye server baraye ap
 var io = socketIO(server);// active socket io on my server
 
 io.on('connection',(socket)=>{
-    console.log('new user connection');
+    console.log(`new user connection`);
 
     //  //ferestadane ye email be carbar az serever
     //  socket.emit('NewEmail',{
@@ -33,9 +33,7 @@ io.on('connection',(socket)=>{
     // socket.on('creatEmile',(email)=>{
     //    console.log('Creat email from user: ',email);
     // })
-    socket.emit('createmesseageSRV',generatemessage('admin','welcome to the chat app'));
-
-    socket.broadcast.emit('createmesseageSRV',generatemessage('admin','new user joined'));
+    
 
     socket.on('createmessageUSR',(message,callback)=>{
         console.log('Createmessage from client',message);
@@ -57,7 +55,19 @@ io.on('connection',(socket)=>{
     socket.on('disconnect',()=>{
         console.log("User was disconnected");
     })
- 
+    socket.on('join',(params,callback)=>{
+         if (!isRealString(params.name) || !isRealString(params.room)){
+             callback('Name and room are required');
+         }
+         //baraye sockete monhaser be fard
+         // io.to(room a).emit()
+         // socket.borcast.to('rom a').emit()
+         socket.join(params.room);
+         socket.emit('createmesseageSRV',generatemessage('admin','welcome to the chat app'));
+
+         socket.broadcast.to(params.room).emit('createmesseageSRV',generatemessage('admin',`${params.name} has joined`));
+         callback();
+    })
 
 })
 app.use(express.static(publickpath));// masire foldere static ro be express midim

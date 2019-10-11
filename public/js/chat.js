@@ -45,6 +45,18 @@ socket.on('connect',function(){
 socket.on('disconnect',function(){
     console.log('disconnect from server');
 })
+
+socket.on('updateUserList',function(users){
+    var ol = $('<ol></ol>');
+    users.forEach(function(user){
+        console.log(user);
+        ol.append($('<li></li>').text(user))
+    })
+    $('#users').html(ol);
+})
+
+
+
 // socket.on('NewEmail',function(email){
 //     console.log('New Email from server : ',email);
 // })//baraye daryafte emil az server
